@@ -4,7 +4,7 @@
   "description": "HTTP-based protocol to control any media player",
   "main": "index.js",
   "scripts": {
-    "test": "standard; tape test/*"
+    "test": "standard *.js; tape test/*"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,12 @@
   },
   "homepage": "https://github.com/Ivshti/stremio-cast#readme",
   "dependencies": {
-    "typed-schema": "^1.0.0"
-  }, 
+    "events": "^1.1.1",
+    "node-fetch": "^1.6.0"
+  },
+  "browser": {
+    "node-fetch": false
+  },
   "devDependencies": {
     "tape": "4.x.x",
     "standard": "8.x.x"
