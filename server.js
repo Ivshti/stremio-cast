@@ -2,6 +2,8 @@ var PROPS = ['volume', 'time', 'paused', 'state', 'length', 'source']
 
 function Server (player, manifest) {
   return function (req, res, next) {
+    if (!req.body) return res.end(400)
+
     // TODO: manifest
     var modifications = req.body
 

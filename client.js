@@ -3,7 +3,7 @@ var events = require('events')
 
 var POLL_INTERVAL = 1000
 var STATES = { NothingSpecial: 0, Opening: 1, Buffering: 2, Playing: 3, Paused: 4, Stopped: 5, Ended: 6, Error: 7 }
-var PROPS = ['volume', 'time', 'paused', 'state', 'length', 'source']
+var PROPS = ['volume', 'time', 'paused', 'state', 'length']
 
 function Client (url) {
   var self = new events.EventEmitter()
@@ -27,8 +27,8 @@ function Client (url) {
     })
   })
 
-  self.play = function (src) { self.source = src }
-  self.stop = function () { self.source = null }
+  self.play = function (src) { self.source = modified.source = src; resetTimer(50) }
+  self.stop = function () { self.source = modified.source = null; resetTimer(50) }
 
   function sync () {
     var p = fetch(url + '/player', { method: 'POST', body: JSON.stringify(modified), headers: { 'content-type': 'application/json' } })
