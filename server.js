@@ -8,7 +8,7 @@ function Server (player, manifest) {
     var modifications = req.body
 
     Object.keys(modifications).forEach(function (k) {
-      if (k === 'source') return modifications.source ? player.play(modifications.source) : player.stop()
+      if (k === 'source') modifications.source ? player.play(modifications.source) : player.stop()
       if (modifications[k] !== player[k]) player[k] = req.body[k]
     })
 
