@@ -28,7 +28,7 @@ function Client (url) {
   })
 
   self.play = function (src) { self.source = modified.source = src; resetTimer(50) }
-  self.stop = function () { self.source = modified.source = null; resetTimer(50) }
+  self.stop = function () { self.source = modified.source = null; resetTimer(50); console.log("stop", JSON.stringify(modified));  }
 
   function sync () {
     var p = fetch(url, { method: 'POST', body: JSON.stringify(modified), headers: { 'content-type': 'application/json' } })
@@ -51,7 +51,7 @@ function Client (url) {
     if (current.state === STATES.Buffering) self.emit('buffering', { buf: 0 })
     if (old.state <= STATES.Opening && current.state > STATES.Opening && current.state < STATES.Stopped) self.emit('loaded', { duration: current.length })
     if (current.state === STATES.Error) self.emit('error', { err: current.error })
-    if (current.state !== old.state) self.emit('statechanged', { state: current.state })
+    if (current.state !== old.state || current.source !== old.source) self.emit('statechanged', { state: current.state })
     if (current.time !== old.time) self.emit('timeupdate', { time: current.time })
   }
 
