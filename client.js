@@ -27,7 +27,7 @@ function Client (url) {
   })
 
   self.play = function (src) { self.source = modified.source = src; resetTimer(50) }
-  self.stop = function () { resetTimer(50); self.source = modified.source = null;  }
+  self.stop = function () { if (! self.source) return; resetTimer(50); self.source = modified.source = null;  }
 
   function sync () {
     var p = fetch(url, { method: 'POST', body: JSON.stringify(modified), headers: { 'content-type': 'application/json' } })
