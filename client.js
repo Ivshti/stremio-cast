@@ -35,8 +35,9 @@ function Client (url) {
 
     p.then(function (res) { return res.json() })
     .then(function (resp) {
-      sendEvs(status, resp) // compare old status vs new and send events if we have to
+      var prev = status 
       status = resp // server must send back full status
+      sendEvs(prev, status) // compare old status vs new and send events if we have to; we must have updated 'status' before doing this
       resetTimer() // trigger sync after POLL_INTERVAL
     })
   }
@@ -47,7 +48,7 @@ function Client (url) {
   }
 
   function sendEvs (old, current) {
-    if (current.state !== old.state || current.source !== old.source || current.mediaSessionId != old.mediaSessionId) self.emit('statechanged', { state: current.state })
+    if (current.state !== old.state || current.source !== old.source || current.mediaSessionId !== old.mediaSessionId) self.emit('statechanged', { state: current.state })
     if (current.time !== old.time) self.emit('timeupdate', { time: current.time })
   }
 
