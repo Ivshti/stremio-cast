@@ -3,7 +3,7 @@ var events = require('events')
 
 var POLL_INTERVAL = 1000
 var STATES = { NothingSpecial: 0, Opening: 1, Buffering: 2, Playing: 3, Paused: 4, Stopped: 5, Ended: 6, Error: 7 }
-var PROPS = ['volume', 'time', 'paused', 'state', 'length']
+var PROPS = ['volume', 'time', 'paused', 'state', 'length', 'mediaSessionId']
 
 function Client (url) {
   var self = new events.EventEmitter()
@@ -22,7 +22,6 @@ function Client (url) {
         modified[p] = v
         resetTimer(50) // do a sync in 50ms
         if (p === 'volume') self.emit('volumechanged')
-        if (p === 'time') self.emit('seeking')
       }
     })
   })
@@ -48,14 +47,9 @@ function Client (url) {
   }
 
   function sendEvs (old, current) {
-    if (current.state === STATES.Buffering) self.emit('buffering', { buf: 0 })
-    if (old.state <= STATES.Opening && current.state > STATES.Opening && current.state < STATES.Stopped) self.emit('loaded', { duration: current.length })
-    if (current.state === STATES.Error) self.emit('error', { err: current.error })
-    if (current.state !== old.state || current.source !== old.source) self.emit('statechanged', { state: current.state })
+    if (current.state !== old.state || current.source !== old.source || current.mediaSessionId != old.mediaSessionId) self.emit('statechanged', { state: current.state })
     if (current.time !== old.time) self.emit('timeupdate', { time: current.time })
   }
-
-  // TODO function init() which pulls /manifest
 
   return self
 }
