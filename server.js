@@ -6,10 +6,11 @@ function Server (player, manifest) {
 
     // TODO: manifest
     var modifications = req.body || { }
-
+    var subs = modifications.subtitlesSrc || player.subtitlesSrc
+    
     Object.keys(modifications).forEach(function (k) {
-      if (k === 'source') modifications.source ? player.play(modifications.source, modifications.subtitlesSrc) : player.stop()
-      if (modifications[k] !== player[k]) player[k] = req.body[k]
+      if (k === 'source') modifications.source ? player.play(modifications.source, subs) : player.stop()
+      if (modifications[k] !== player[k]) player[k] = modifications[k]
     });
 
     (function(next) {
