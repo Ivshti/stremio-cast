@@ -4,12 +4,10 @@ function Server (player, manifest) {
   return function (req, res, next) {
     if (!req.body) return res.end(400)
 
-    // TODO: manifest
     var modifications = req.body || { }
-    var subs = modifications.subtitlesSrc || player.subtitlesSrc
     
     Object.keys(modifications).forEach(function (k) {
-      if (k === 'source') modifications.source ? player.play(modifications.source, subs) : player.stop()
+      if (k === 'source') modifications.source ? player.play(modifications.source) : player.stop()
       if (modifications[k] !== player[k]) player[k] = modifications[k]
     });
 
