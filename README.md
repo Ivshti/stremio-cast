@@ -19,5 +19,11 @@
 * `state` - read - current player state; 0 - idle, 1 - opening, 2 - buffering, 3 - playing, 4 - paused, 5 - stopped, 6 - ended, 7 - error
 * `length` - read - time length of current media
 
+## Functions
+
+* `play(source)` - start playback
+* `stop()` - stop playback
+* `update()` - re-fetch status from casting device
+
 **DISCLAIMER** This does not pretend to be an alternative of existing protocols, such as DLNA and castv2. It's merely something similar designed with extreme simplicity in mind over HTTP and JSON.
 
