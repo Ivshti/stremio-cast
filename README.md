@@ -23,7 +23,7 @@
 
 * `play(source)` - start playback
 * `stop()` - stop playback
-* `update()` - re-fetch status from casting device
+* `update(cb)` - re-fetch status from casting device
 
 **DISCLAIMER** This does not pretend to be an alternative of existing protocols, such as DLNA and castv2. It's merely something similar designed with extreme simplicity in mind over HTTP and JSON.
 
