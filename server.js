@@ -1,4 +1,4 @@
-var PROPS = ['volume', 'time', 'paused', 'state', 'length', 'source', 'mediaSessionId', 'subtitlesSrc']
+var PROPS = ['volume', 'time', 'paused', 'state', 'length', 'source', 'mediaSessionId', 'subtitlesSrc', 'subtitlesDelay']
 
 function Server (player, manifest) {
   return function (req, res, next) {
