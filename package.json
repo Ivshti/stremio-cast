@@ -1,6 +1,6 @@
 {
   "name": "stremio-cast",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "HTTP-based protocol to control any media player",
   "main": "index.js",
   "scripts": {
